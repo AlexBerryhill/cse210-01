@@ -28,6 +28,30 @@ def playBoard(input):
     if boardSpot != "X" or boardSpot != "O":
         board[int((input-0.1)/3)][(input+2)%3] = currentTurn
 
+def win():
+    global gameActive
+    print(f"{currentTurn} wins!")
+    gameActive = False
+
+def checkWin():
+    if board[0][0]==currentTurn and board[0][1]==currentTurn and board[0][2]==currentTurn:
+        win()
+    elif board[1][0]==currentTurn and board[1][1]==currentTurn and board[1][2]==currentTurn:
+        win()
+    elif board[2][0]==currentTurn and board[2][1]==currentTurn and board[2][2]==currentTurn:
+        win()
+    elif board[0][0]==currentTurn and board[1][0]==currentTurn and board[2][0]==currentTurn:
+        win()
+    elif board[0][1]==currentTurn and board[1][1]==currentTurn and board[2][1]==currentTurn:
+        win()
+    elif board[0][2]==currentTurn and board[1][2]==currentTurn and board[2][2]==currentTurn:
+        win()
+    elif board[0][0]==currentTurn and board[1][1]==currentTurn and board[2][2]==currentTurn:
+        win()
+    elif board[0][2]==currentTurn and board[1][1]==currentTurn and board[2][0]==currentTurn:
+        win()
+
+
 def toggleTurn():
     global currentTurn
     if currentTurn == "X":
