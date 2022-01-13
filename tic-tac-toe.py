@@ -2,6 +2,13 @@ board = [[1,2,3],[4,5,6],[7,8,9]]
 currentTurn = "X"
 gameActive = True
 
+def main():
+    while(gameActive == True):
+        printBoard()
+        playBoard(getInput())
+        checkWin()
+        toggleTurn()
+
 def printBoard():
     print("{}|{}|{}".format(board[0][0],board[0][1],board[0][2]))
     print("-+-+-")
@@ -30,11 +37,12 @@ def playBoard(input):
 
 def win():
     global gameActive
+    printBoard()
     print(f"{currentTurn} wins!")
     gameActive = False
 
 def checkWin():
-    if board[0][0]==currentTurn and board[0][1]==currentTurn and board[0][2]==currentTurn:
+    if board[0][0] == board[0][1]== board[0][2]:
         win()
     elif board[1][0]==currentTurn and board[1][1]==currentTurn and board[1][2]==currentTurn:
         win()
@@ -59,10 +67,5 @@ def toggleTurn():
     else:
         currentTurn = "X"
 
-def main():
-    printBoard()
-    playBoard(getInput())
-    toggleTurn()
-
-while(gameActive == True):
+if __name__ == "__main__":
     main()
