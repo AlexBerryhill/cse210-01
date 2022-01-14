@@ -29,15 +29,18 @@ def get_input():
         except:
             print("That is not a valid option!")
     if userInput > 9 or userInput < 1:
-        print("That is not a valid option!")
+        print("That is not a valid number! (1-9)")
         userInput = get_input()
     return userInput
 
 
 def play_board(input):
     boardSpot = board[int((input-0.1)/3)][(input+2)%3]
-    if boardSpot != "X" or boardSpot != "O":
+    if boardSpot != "X" and boardSpot != "O":
         board[int((input-0.1)/3)][(input+2)%3] = currentTurn
+    else:
+        print("That spot is already taken!")
+        play_board(get_input())
 
 def win(draw=False):
     global gameActive
@@ -52,7 +55,6 @@ def check_draw():
     for i in range(3):
         for j in range(3):
             if board[i][j] != "X" and board[i][j] != "O":
-                print(f"[{i}][{j}]")
                 return
     win(True)
     return
