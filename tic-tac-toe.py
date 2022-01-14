@@ -1,47 +1,63 @@
+'''
+Tic-Tac-Toe
+Author: Alex Berryhill
+'''
 board = [[1,2,3],[4,5,6],[7,8,9]]
 currentTurn = "X"
 gameActive = True
 
 def main():
     while(gameActive == True):
-        printBoard()
-        playBoard(getInput())
-        checkWin()
-        toggleTurn()
+        print_board()
+        play_board(get_input())
+        check_win()
+        toggle_turn()
 
-def printBoard():
+def print_board():
     print("{}|{}|{}".format(board[0][0],board[0][1],board[0][2]))
     print("-+-+-")
     print("{}|{}|{}".format(board[1][0],board[1][1],board[1][2]))
     print("-+-+-")
     print("{}|{}|{}".format(board[2][0],board[2][1],board[2][2]))
 
-def getInput():
+def get_input():
     while True:
         try:
-            print("\n{}'s turn to choose a square: ".format(currentTurn))
+            print("\n{}'s turn to choose a square (1-9): ".format(currentTurn))
             userInput = int(input())
             break
         except:
             print("That is not a valid option!")
     if userInput > 9 or userInput < 1:
         print("That is not a valid option!")
-        userInput = getInput()
+        userInput = get_input()
     return userInput
 
 
-def playBoard(input):
+def play_board(input):
     boardSpot = board[int((input-0.1)/3)][(input+2)%3]
     if boardSpot != "X" or boardSpot != "O":
         board[int((input-0.1)/3)][(input+2)%3] = currentTurn
 
-def win():
+def win(draw=False):
     global gameActive
-    printBoard()
-    print(f"{currentTurn} wins!")
+    print_board()
+    if(draw):
+        print("It is a draw!")
+    else:
+        print(f"{currentTurn} wins!")
     gameActive = False
 
-def checkWin():
+def check_draw():
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] != "X" and board[i][j] != "O":
+                print(f"[{i}][{j}]")
+                return
+    win(True)
+    return
+
+def check_win():
     if board[0][0] == board[0][1]== board[0][2]:
         win()
     elif board[1][0]==currentTurn and board[1][1]==currentTurn and board[1][2]==currentTurn:
@@ -58,9 +74,11 @@ def checkWin():
         win()
     elif board[0][2]==currentTurn and board[1][1]==currentTurn and board[2][0]==currentTurn:
         win()
+    else:
+        check_draw()
 
 
-def toggleTurn():
+def toggle_turn():
     global currentTurn
     if currentTurn == "X":
         currentTurn = "O"
